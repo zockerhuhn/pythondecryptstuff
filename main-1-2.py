@@ -2,9 +2,9 @@ import numpy
 rekursion = None
 unknownrekursion = None
 rekursiv = None
-eee = "test;goblin;e"
-#listofwords = open("listofwords.txt").read().split(";")
-listofwords = eee.split(";")
+#eee = "test;goblin;e"
+listofwords = open("listofwords.txt").read().split(";")
+#listofwords = eee.split(";")
 
 def caeser(original, verschiebung):
     result = ""
