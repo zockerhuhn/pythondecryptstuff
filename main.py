@@ -40,7 +40,7 @@ def checktext(texttocheck):
                 if word in splitted:
                     if word not in alreadyhit:
                         amount += 1
-                        print(word)
+                        #print(word)
                         alreadyhit.append(word)
         #print(loop)
         treffer.append(amount)
@@ -66,7 +66,7 @@ if input("caeser/gartenzaun [c/g]") == "c":
     checktext(splittedtext)
     #print(splittedtext)
     print(splittedtext[(treffer.index(max(treffer)))])
-    print(treffer)
+    #print(treffer)
 else:
     if input("encrypt? [y/n]") == "y":
         print(gartenzaun_en(message))
