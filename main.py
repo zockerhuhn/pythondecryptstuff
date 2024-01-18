@@ -24,8 +24,7 @@ def caeserdecrypt(original, key):
                 num -= len(letters)
             result += letters[num]
     print('key #%s: %s' % (key, result))
-    walloftext += result
-    walloftext += ';'
+    walloftext += result + ';'
     if key < 26:
         caeserdecrypt(original, (key+1))
 
@@ -46,12 +45,10 @@ def checktext(texttocheck):
         treffer.append(amount)
 
 def gartenzaun_en(text):
-    text2 = text[::2]
-    text3 = text[1::2]
-    return text2 + text3
+    return text[::2] + text[1::2]
 
 def gartenzaun_de(text):
-    if not (len(text)/2) == (len(text)//2):
+    if not (len(text) % 2 == 0):
         text += "_"
     middle = len(text) // 2
     text2 = ""
@@ -65,7 +62,7 @@ if input("caeser/gartenzaun [c/g]") == "c":
     splittedtext = walloftext.split(';')
     checktext(splittedtext)
     #print(splittedtext)
-    print(splittedtext[(treffer.index(max(treffer)))])
+    print("most matches (%s) in word: %s with key: %s/%s" % (max(treffer) ,splittedtext[(treffer.index(max(treffer)))], treffer.index(max(treffer))+1, treffer.index(max(treffer))-25))
     #print(treffer)
 else:
     if input("encrypt? [y/n]") == "y":
