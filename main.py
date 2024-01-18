@@ -48,6 +48,8 @@ def gartenzaun_en(text):
     return text[::2] + text[1::2]
 
 def gartenzaun_de(text):
+    if " " in text:
+        text = text.replace(' ', '')
     if not (len(text) % 2 == 0):
         text += "_"
     middle = len(text) // 2
