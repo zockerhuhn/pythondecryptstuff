@@ -1,4 +1,3 @@
-#message = input("original") #encrypted message
 message = input("original Text:")
 LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 letters = 'abcdefghijklmnopqrstuvwxyz'

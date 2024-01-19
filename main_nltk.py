@@ -1,5 +1,5 @@
-from nltk.tokenize import sent_tokenize
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import sent_tokenize, word_tokenize
+
 #message = input("original") #encrypted message
 message = input("original Text:")
 LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -38,12 +38,10 @@ def checktext(texttocheck):
         alreadyhit = []
         for word in listofwords:
             loop += 1
-            if len(word) >= 3:
-                if word in splitted:
-                    if word not in alreadyhit:
-                        amount += 1
-                        print(word)
-                        alreadyhit.append(word)
+            if len(word) >= 3 and word in splitted and word not in alreadyhit:
+                amount += 1
+                print(word)
+                alreadyhit.append(word)
         print(loop)
         treffer.append(amount)
 
@@ -53,7 +51,7 @@ def gartenzaun_en(text):
     return text2 + text3
 
 def gartenzaun_de(text):
-    if not (len(text)/2) == (len(text)//2):
+    if len(text) / 2 != len(text) // 2:
         text += "_"
     middle = len(text) // 2
     text2 = ""
