@@ -27,6 +27,28 @@ def caeserdecrypt(original, key):
     if key < 26:
         caeserdecrypt(original, (key+1))
 
+def xyz(original):
+  global letters
+  result = ""
+  key = []
+  for z in range(len(letters)):
+    key.append(int(0))
+  while key[25] != 25:
+    for i in original:
+      num = letters.find(i)
+      num += key[num]
+      if num >25:
+        num -= len(letters)
+      result += letters[num]
+    result += ';'
+    key[0] += 1
+    while 26 in key:
+      key[key.index(26)+1] += 1
+      key[key.index(26)] = 0
+    #print(key)
+    #print('\n')
+  return result
+
 def checktext(texttocheck):
     loop = 0
     for splitted in texttocheck:
@@ -65,6 +87,8 @@ if input("caeser/gartenzaun [c/g]") == "c":
     #print(splittedtext)
     print("most matches (%s) in word: %s with key: %s/%s" % (max(treffer) ,splittedtext[(treffer.index(max(treffer)))], treffer.index(max(treffer))+1, treffer.index(max(treffer))-25))
     #print(treffer)
+    splittedxyz = xyz(message).split(';')
+    print(checktext(splittedxyz))
 else:
     if input("encrypt? [y/n]") == "y":
         print(gartenzaun_en(message))
