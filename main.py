@@ -53,23 +53,17 @@ def xyz(original):
     key.append(0)
   while key[25] != 3:
     tempresult = ""
-    print(key)
+    #print(key)
     for i in original:
       if i in letters:
         tempresult += sortedletters[get_nth_key(origdistribution,i)+(key[letters.index(i)])]
-    score = checktext(tempresult)
-    if score == bestscore:
-      best += '\n' + tempresult
-      print("added %s with %s matches" % (tempresult,score))
-    elif score > bestscore:
-      best = tempresult
-      bestscore = score
-      print("replaced %s with %s with %s matches" % (best,tempresult,score))
     key[0]+=1
     try:
       while key.index(3) != None:
-        if (key.index(3) >= 2):
+        if (key.index(3) >= 7):
           print(str(key.index(3)+1))
+          if key.index(3) >= 13:
+            compare(tempresult,best,bestscore,score)
         key[key.index(3)+1] += 1
         key[key.index(3)] = 0
     except:
@@ -77,6 +71,7 @@ def xyz(original):
 
 def checktext(texttocheck):
   loop = 0
+  amount = 0
   for splitted in texttocheck:
     amount = 0
     alreadyhit = []
@@ -91,6 +86,16 @@ def checktext(texttocheck):
     #print(loop)
     treffer.append(amount)
   return amount
+
+def compare(tempresult,best,bestscore,score):
+  score = checktext(tempresult)
+  if score == bestscore:
+    best += '\n' + tempresult
+    print("added %s with %s matches" % (tempresult,score))
+  elif score > bestscore:
+    best = tempresult
+    bestscore = score
+    print("replaced %s with %s with %s matches" % (best,tempresult,score))
 
 def gartenzaun_en(text):
   return text[::2] + text[1::2]
