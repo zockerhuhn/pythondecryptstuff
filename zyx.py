@@ -25,5 +25,5 @@ def substitution(klartext, schluesselwort):
         geheimtext += geheimbuchstabe
     return(geheimtext)
 
-print (substitution("DIES IST EIN ZUFAELLIGER BEISPIELSATZ","Platon"))
+print (substitution("DIESISTEINZUFAELLIGERBEISPIELSATZ","Platon"))
 print (erzeugeSchluessel("Platon"))
