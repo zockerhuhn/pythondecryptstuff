@@ -75,7 +75,8 @@ def xyz(original):
     #print(overwritekey)
     key[0]+=1
     try:
-      while key.index(3) is not None:
+      added = 0
+      while key.index(3)+added is not None:
         added = 0
         while overwritekey[letters[key.index(3)+added]] is None: #to skip over already detected letters
           added += 1
