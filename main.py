@@ -63,26 +63,29 @@ def xyz(original):
           tempresult += sortedletters[get_nth_key(origdistribution,i)+minmax(key[letters.index(i)]-1,int(0),int(25))]
         else:
           tempresult += overwritekey[i]
-    temp=[]
+    temp=["",0,[]]
     temp=compare(tempresult,best,bestscore)
-    best = str(temp[0])
+    best = temp[0]
     bestscore = temp[1]
-    print(tempresult)
-    if temp[2] is not None:
-      for char in temp[2]:
-        overwritekey[char]= sortedletters[get_nth_key(origdistribution,char)+minmax(key[letters.index(char)]-1,int(0),int(25))]
-    print(overwritekey)
+    #print(tempresult)
+    if temp[2] != []:
+      for word in temp[2]:
+        for char in word:
+          overwritekey[char]= sortedletters[get_nth_key(origdistribution,char)+minmax(key[letters.index(char)]-1,int(0),int(25))]
+    #print(overwritekey)
     key[0]+=1
     try:
       while key.index(3) is not None:
-        if (key.index(3) >= 7):
-          print(str(key.index(3)+1))
-          #if key.index(3) >= 13:
-            #compare(tempresult,best,bestscore)
-        key[key.index(3)+1] += 1
-        key[key.index(3)] = 0
+        added = 0
+        while overwritekey[letters[key.index(3)+added]] is None: #to skip over already detected letters
+          added += 1
+        if (key.index(3)+added >= 7):
+          print(str(key.index(3)+added+1))
+        key[key.index(3)+added+1] += 1
+        key[key.index(3)+added] = 0
     except:
       pass
+  print(best)
 
 def minmax(value, minimum, maximum):
   """
@@ -108,10 +111,10 @@ def checktext(texttocheck):
   return [amount,alreadyhit]
 
 def compare(tempresult,best,bestscore):
-  temp = checktext(tempresult)[0]
-  score = int(temp[0])
+  temp = checktext(tempresult)
+  score = temp[0]
   words = temp[1]
-  if score == bestscore:
+  if score == bestscore and len(best) <= 500:
     best += '\n' + tempresult
     print("added %s with %s matches" % (tempresult,score))
   elif score > bestscore:
