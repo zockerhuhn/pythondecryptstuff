@@ -14,5 +14,16 @@ def erzeugeSchluessel(schluesselwort):
             schluessel += zeichen
     return schluessel
 
+def substitution(klartext, schluesselwort):
+    schluessel = erzeugeSchluessel(schluesselwort)
+    klartext = klartext.upper()
+    geheimtext = ""
+    for i in range(len(klartext)):
+        zeichen = klartext[i]
+        index = ord(zeichen)-65
+        geheimbuchstabe = schluessel[index%26]
+        geheimtext += geheimbuchstabe
+    return(geheimtext)
 
-print (erzeugeSchluessel("AABBCCDEFFF"))
+print (substitution("DIES IST EIN ZUFAELLIGER BEISPIELSATZ","Platon"))
+print (erzeugeSchluessel("Platon"))
