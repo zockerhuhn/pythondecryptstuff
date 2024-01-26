@@ -34,11 +34,12 @@ def caeserdecrypt(original, key):
     caeserdecrypt(original, (key+1))
 
 def xyz(original):
+  original = original.lower()
   global letters
   distribution = [17.40,9.78,7.55,7.27,7.00,6.51,6.15,5.08,4.76,4.35,3.44,3.06,3.01,2.53,2.51,1.89,1.89,1.66,1.21,1.13,0.79,0.67,0.27,0.04,0.03,0.02]
   sortedletters = ["e","n","i","s","r","a","t","d","h","u","l","c","g","m","o","b","w","f","k","z","p","v","j","y","x","q"]
   origdistribution = {}
-  bestscore = int(3) #set this to minimun amount of hits to count as valid
+  bestscore = int(1) #set this to minimun amount of hits to count as valid
   best = ""
   for i in letters:
     hits = 0
@@ -50,24 +51,35 @@ def xyz(original):
   print(origdistribution)
   key = []
   for i in range(0,26):
-    key.append(0)
+    key.append(1)
   while key[25] != 3:
     tempresult = ""
     #print(key)
     for i in original:
       if i in letters:
-        tempresult += sortedletters[get_nth_key(origdistribution,i)+(key[letters.index(i)])]
+        tempresult += sortedletters[get_nth_key(origdistribution,i)+minmax(key[letters.index(i)]-1,int(0),int(25))]
+    temp=compare(tempresult,best,bestscore)
+    best = temp[0]
+    bestscore = temp[1]
+    print(tempresult)
     key[0]+=1
     try:
-      while key.index(3) != None:
+      while key.index(3) is not None:
         if (key.index(3) >= 7):
           print(str(key.index(3)+1))
-          if key.index(3) >= 13:
-            compare(tempresult,best,bestscore,score)
+          #if key.index(3) >= 13:
+            #compare(tempresult,best,bestscore)
         key[key.index(3)+1] += 1
         key[key.index(3)] = 0
     except:
       pass
+
+def minmax(value, minimum, maximum):
+  """
+  returns the Value if it is between the minimum and maximum
+  returns min/maximum if value is beneath minimum/maximum
+  """
+  return (min(max(value, minimum), maximum))
 
 def checktext(texttocheck):
   loop = 0
@@ -87,7 +99,7 @@ def checktext(texttocheck):
     treffer.append(amount)
   return amount
 
-def compare(tempresult,best,bestscore,score):
+def compare(tempresult,best,bestscore):
   score = checktext(tempresult)
   if score == bestscore:
     best += '\n' + tempresult
@@ -96,6 +108,7 @@ def compare(tempresult,best,bestscore,score):
     best = tempresult
     bestscore = score
     print("replaced %s with %s with %s matches" % (best,tempresult,score))
+  return [best,bestscore]
 
 def gartenzaun_en(text):
   return text[::2] + text[1::2]
@@ -119,8 +132,8 @@ if input("caeser/gartenzaun [c/g]") == "c":
   #print(splittedtext)
   print("most matches (%s) in word: %s with key: %s/%s" % (max(treffer) ,splittedtext[(treffer.index(max(treffer)))], treffer.index(max(treffer))+1, treffer.index(max(treffer))-25))
   #print(treffer)
-  splittedxyz = xyz(message).split(';')
-  print(checktext(splittedxyz))
+  input()
+  splittedxyz = xyz(message)
 else:
   if input("encrypt? [y/n]") == "y":
     print(gartenzaun_en(message))
