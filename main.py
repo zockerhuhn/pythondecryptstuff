@@ -36,7 +36,7 @@ def caeserdecrypt(original, key):
 def xyz(original):
   original = original.lower()
   global letters
-  distribution = [17.40,9.78,7.55,7.27,7.00,6.51,6.15,5.08,4.76,4.35,3.44,3.06,3.01,2.53,2.51,1.89,1.89,1.66,1.21,1.13,0.79,0.67,0.27,0.04,0.03,0.02]
+  distribution = [0]*26
   sortedletters = ["e","n","i","s","r","a","t","d","h","u","l","c","g","m","o","b","w","f","k","z","p","v","j","y","x","q"]
   origdistribution = {}
   overwritekey = {}
@@ -54,6 +54,7 @@ def xyz(original):
   key = []
   for i in range(0,26):
     key.append(1)
+  highest = 7
   while key[25] != 3:
     tempresult = ""
     #print(key)
@@ -68,22 +69,27 @@ def xyz(original):
     best = temp[0]
     bestscore = temp[1]
     #print(tempresult)
+    #print(temp[2])
     if temp[2] != []:
       for word in temp[2]:
-        for char in word:
-          overwritekey[char]= sortedletters[get_nth_key(origdistribution,char)+minmax(key[letters.index(char)]-1,int(0),int(25))]
+        for symbol in word:
+          distribution[letters.index(symbol)] += 1
+    for i in range(0,25):
+      if distribution[i] >= 3:
+        overwritekey[letters[i]]= sortedletters[get_nth_key(origdistribution,letters[i])+minmax(key[i]-1,int(0),int(25))]
     #print(overwritekey)
     key[0]+=1
     try:
-      added = 0
+      added = 1
       while key.index(3)+added is not None:
-        added = 0
-        while overwritekey[letters[key.index(3)+added]] is None: #to skip over already detected letters
+        added = 1
+        while overwritekey[letters[key.index(3)+added]] is not None: #to skip over already detected letters
           added += 1
-        if (key.index(3)+added >= 7):
-          print(str(key.index(3)+added+1))
-        key[key.index(3)+added+1] += 1
-        key[key.index(3)+added] = 0
+        if (key.index(3)+added > highest):
+          print(str(key.index(3)+added))
+          highest = key.index(3)+added
+        key[key.index(3)+added] += 1
+        key[key.index(3)] = 0
     except:
       pass
   print(best)
