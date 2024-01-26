@@ -7,6 +7,9 @@ listofwords = listofwords.split("\n")
 treffer = []
 
 def get_nth_key(dictionary, n):
+  """
+  returns the index of key n
+  """
   for i, key in enumerate(dictionary.keys()):
     if key == n:
         return i
@@ -36,7 +39,6 @@ def caeserdecrypt(original, key):
 def xyz(original):
   original = original.lower()
   global letters
-  distribution = [0]*26
   sortedletters = ["e","n","i","s","r","a","t","d","h","u","l","c","g","m","o","b","w","f","k","z","p","v","j","y","x","q"]
   origdistribution = {}
   overwritekey = {}
@@ -70,6 +72,7 @@ def xyz(original):
     bestscore = temp[1]
     #print(tempresult)
     #print(temp[2])
+    distribution = [0]*26
     if temp[2] != []:
       for word in temp[2]:
         for symbol in word:
