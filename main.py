@@ -1,4 +1,4 @@
-message = input("original Text:")
+message = "Diesisteinbeispielsatz" #input("original Text:")
 LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 letters = 'abcdefghijklmnopqrstuvwxyz'
 walloftext = ""
@@ -22,47 +22,10 @@ def caeserdecrypt(original, key):
             if num >25:
                 num -= len(letters)
             result += letters[num]
-    print('key #%s: %s' % (key, result))
+    #print('key #%s: %s' % (key, result))
     walloftext += result + ';'
     if key < 26:
         caeserdecrypt(original, (key+1))
-
-def xyz(original):
-    global letters
-    result:list
-    best = ""
-    bestscore = 1
-    key = []
-    for z in range(len(letters)):
-        key.append(int(0))
-    while key[25] != 25:
-        result = ""
-        for i in original:
-            num = letters.find(i)
-            num += key[num]
-            while num > 25:
-                num -= len(letters)
-            result += letters[num]
-        score = checktext(result)
-        if score == bestscore:
-            best += '\n' + result
-            print("added %s with %s matches" % (result,score))
-        elif score > bestscore:
-            best = result
-            print("replaced %s with %s with %s matches" % (best,result,score))
-        key[0] += 1
-        try:
-            while key.index(26) != None:
-                if (key.index(26) >= 2):
-                    print(str(key.index(26)+1))
-                key[key.index(26)+1] += 1
-                key[key.index(26)] = 0
-        except:
-            pass
-        #print(key)
-        #print('\n')
-    export = [best, bestscore]
-    return export
 
 def checktext(texttocheck):
     global loop
@@ -93,7 +56,7 @@ def gartenzaun_de(text):
         text2 += text[i + middle]
     return text2
 
-if input("caeser/gartenzaun [c/g]") == "c":
+if "c" == "c":
     bestscore = 1
     endresult = ""
     caeserdecrypt(message, 1)
@@ -107,9 +70,6 @@ if input("caeser/gartenzaun [c/g]") == "c":
             bestscore = score
     #print(splittedtext)
     print("most matches (%s) in word(s): \n %s" % (bestscore, endresult))
-    if input("xyz? [y/n]") == "y":
-        export = xyz(message)
-        print("most matches (%s) in: \n %s" % (export[1], export[0]))
 else:
     if input("encrypt? [y/n]") == "y":
         print(gartenzaun_en(message))
