@@ -1,15 +1,17 @@
+from Lowstring import listofwords
 message = "Diesisteinbeispielsatzfuerdiecaeserverschluesselung"
-LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 letters = 'abcdefghijklmnopqrstuvwxyz'
 walloftext = []
-listofwords = (open("listofwords.txt").read()).split("\n")
 def caeserdecrypt(original, key):
     global walloftext
+    global letterswithkey
+    letterswithkey = ''
+    for letter in range(len(letters)):
+        letterswithkey += (letters[(letter+key)%len(letters)])
     result = ""
     for symbol in original:
         if symbol in letters:
-            num = (letters.find(symbol)+key)%len(letters)
-            result += letters[num]
+            result += letterswithkey[letters.find(symbol)]
     walloftext.append(result)
     if key < 26:
         caeserdecrypt(original, (key+1))
